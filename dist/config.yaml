@@ -19,21 +19,19 @@ scoop:
     }}/{{ .ArtifactName }}
 builds:
 - goos:
-  - linux
   - darwin
+  - linux
   goarch:
   - amd64
-  - "386"
   goarm:
   - "6"
   targets:
-  - linux_amd64
-  - linux_386
   - darwin_amd64
-  - darwin_386
+  - linux_amd64
   main: .
   ldflags:
-  - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
+  - -s -w -X github.com/unchartedsky/bodyguard/cmd.version={{.Version}} -X github.com/unchartedsky/bodyguard/cmd.commit={{.Commit}}
+    -X github.com/unchartedsky/bodyguard/cmd.date={{.Date}}
   binary: bodyguard
   env:
   - CGO_ENABLED=0
@@ -42,8 +40,11 @@ archive:
   name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm
     }}v{{ .Arm }}{{ end }}'
   replacements:
+    "386": i386
+    amd64: x86_64
     darwin: Darwin
     linux: Linux
+    windows: Windows
   format: tar.gz
   files:
   - licence*

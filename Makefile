@@ -16,9 +16,7 @@ proto:
 		exit 1; \
 	fi
 	go get -u -v github.com/golang/protobuf/protoc-gen-go
-	for file in $$(git ls-files '*.proto'); do \
-		protoc -I $$(dirname $$file) --go_out=plugins=grpc:$$(dirname $$file) $$file; \
-  done
+	go generate ./...
 
 .PHONY: build
 build: proto fmt

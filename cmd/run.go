@@ -19,6 +19,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"os/exec"
 
 	"github.com/spf13/cobra"
 
@@ -64,11 +65,25 @@ const (
 )
 
 // server is used to implement helloworld.GreeterServer.
-type server struct{}
+type helloServer struct{}
 
 // SayHello implements helloworld.GreeterServer
-func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+func (s *helloServer) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
 	return &pb.HelloReply{Message: "Hello " + in.Name}, nil
+}
+
+type wireGuardServer struct{}
+
+func (s *wireGuardServer) Show(ctx context.Context, in *pb.ShowRequest) (*pb.ShowReply, error) {
+	wgCmd := exec.Command("wg", "show")
+	wgOut, err := wgCmd.Output()
+	if err != nil {
+		panic(err)
+	}
+	msg := string(wgOut)
+	fmt.Println(msg)
+
+	return &pb.ShowReply{Message: msg}, nil
 }
 
 func run() {
@@ -77,7 +92,8 @@ func run() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterGreeterServer(s, &server{})
+	pb.RegisterGreeterServer(s, &helloServer{})
+	pb.RegisterWireGuardServer(s, &wireGuardServer{})
 	// Register reflection service on gRPC server.
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {
