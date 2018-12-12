@@ -3,6 +3,7 @@ BIN			:= $(NAME)
 
 SHELL := /bin/bash
 
+
 # go source files, ignore vendor directory
 SRC = $(shell find . -type f -name '*.go' -not -path "./vendor/*")
 
@@ -28,6 +29,10 @@ test: build
 
 .PHONY: fmt
 fmt:
+	@ if ! which goimports > /dev/null; then \
+		go get -u -v golang.org/x/tools/cmd/goimports; \
+	fi
+
 	go mod tidy
 	goimports -l -w $(SRC)
 	gofmt -l -w -s $(SRC)

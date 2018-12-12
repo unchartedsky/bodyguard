@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/unchartedsky/bodyguard.svg?token=265AAhxHviCMV4xC9qkK&branch=master)](https://travis-ci.com/unchartedsky/bodyguard)
+
 # bodyguard
 
 ## How to test
