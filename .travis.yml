@@ -24,7 +24,9 @@ install:
   - mkdir -p "$HOME"/src && ln -s "$HOME"/protoc "$HOME"/src/protobuf
 
 env:
-- PATH=$HOME/protoc/bin:$PATH GO111MODULE=on
+  global:
+  - PATH=$HOME/protoc/bin:$PATH
+  - GO111MODULE=on
 
 # needed for the docker pipe
 services:
