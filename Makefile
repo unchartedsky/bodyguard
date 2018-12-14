@@ -28,7 +28,7 @@ test: build
 	@go test
 
 .PHONY: fmt
-fmt:
+fmt: proto
 	@ if ! which goimports > /dev/null; then \
 		go get -u -v golang.org/x/tools/cmd/goimports; \
 	fi

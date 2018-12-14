@@ -6,4 +6,4 @@ if [ "$1" != "./bodyguard" ]; then
   exit $?
 fi
 
-exec "$@" -logtostderr=true -stderrthreshold=${LOGGING_LEVEL}
+exec "$@" --logtostderr=true --stderrthreshold=${LOGGING_LEVEL}

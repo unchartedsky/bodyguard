@@ -13,4 +13,6 @@ ENV LOGGING_LEVEL WARNING
 COPY docker-entrypoint.sh ./
 ENTRYPOINT ["./docker-entrypoint.sh"]
 
-CMD ["./bodyguard"]
+EXPOSE 50051
+
+CMD ["./bodyguard", "run"]
