@@ -14,9 +14,7 @@
 
 package main
 
-import (
-	"github.com/unchartedsky/bodyguard/cmd"
-)
+import "github.com/unchartedsky/bodyguard/server/cmd"
 
 func main() {
 	cmd.Execute()

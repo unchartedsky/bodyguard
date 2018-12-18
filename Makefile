@@ -21,11 +21,11 @@ proto:
 
 .PHONY: build
 build: proto fmt
-	@go build -a -o bin/$(BIN) .
+	@go build -o bin/$(BIN) ./server
 
 .PHONY: test
 test: build
-	@go test
+	@go test ./server
 
 .PHONY: fmt
 fmt: proto
@@ -40,3 +40,7 @@ fmt: proto
 .PHONY: run
 run: build
 	bin/$(BIN)
+
+.PHONY: snapshot
+snapshot:
+	goreleaser --snapshot --rm-dist

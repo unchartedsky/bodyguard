@@ -8,7 +8,8 @@ before:
     - go generate ./...
 
 builds:
-- env:
+- main: ./server/main.go
+  env:
   - CGO_ENABLED=0
   ldflags:
   - -s -w -X github.com/unchartedsky/bodyguard/cmd.version={{.Version}} -X github.com/unchartedsky/bodyguard/cmd.commit={{.Commit}} -X github.com/unchartedsky/bodyguard/cmd.date={{.Date}}
