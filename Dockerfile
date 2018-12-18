@@ -7,6 +7,7 @@ RUN mkdir -p /opt/app
 WORKDIR /opt/app
 
 COPY bodyguard ./
+COPY bodyguard_cli ./
 
 ENV LOGGING_LEVEL WARNING
 

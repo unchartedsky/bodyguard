@@ -1,5 +1,8 @@
-NAME    := bodyguard
+NAME			:= bodyguard
+NAME_CLI	:= $(NAME)_cli
+
 BIN			:= $(NAME)
+BIN_CLI := $(NAME_CLI)
 
 SHELL := /bin/bash
 
@@ -22,10 +25,12 @@ proto:
 .PHONY: build
 build: proto fmt
 	@go build -o bin/$(BIN) ./server
+	@go build -o bin/$(BIN_CLI) ./client
 
 .PHONY: test
 test: build
 	@go test ./server
+	@go test ./client
 
 .PHONY: fmt
 fmt: proto

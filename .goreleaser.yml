@@ -27,6 +27,27 @@ builds:
   goarch:
   - amd64
 
+- main: ./client/main.go
+  binary: bodyguard_cli
+
+  env:
+  - CGO_ENABLED=0
+  ldflags:
+  - -s -w -X github.com/unchartedsky/bodyguard/cmd.version={{.Version}} -X github.com/unchartedsky/bodyguard/cmd.commit={{.Commit}} -X github.com/unchartedsky/bodyguard/cmd.date={{.Date}}
+
+  # GOOS list to build for.
+  # For more info refer to: https://golang.org/doc/install/source#environment
+  # Defaults are darwin and linux.
+  goos:
+  - darwin
+  - linux
+
+  # GOARCH to build for.
+  # For more info refer to: https://golang.org/doc/install/source#environment
+  # Defaults are 386 and amd64.
+  goarch:
+  - amd64
+
 archive:
   replacements:
     darwin: Darwin
